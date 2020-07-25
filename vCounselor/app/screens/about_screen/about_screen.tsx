@@ -50,7 +50,7 @@ export class AboutScreen extends React.Component {
         </Card>
         <View style={styles.padding}/>
         <Card style={styles.cardStyle} header={Header}>
-            <Text>Arvind Vivekanandan, Eric Wang, Justin Yue</Text>
+            <Text>Arvind Vivekanandan, Eric Wang, and Justin Yue</Text>
         </Card>
       </Layout>
     );
