@@ -27,11 +27,15 @@ export class ResourcesScreen extends React.Component {
       <Layout style={styles.container}>
         <ScrollView>
           <Card style={styles.titleCard}>
-            <Text>College Map Search</Text>
+            <Text style={styles.titleText}>College Map Search</Text>
           </Card>
           <View style={styles.webViewStyle}>
             <WebView style={styles.webViewStyle} source={{ uri: COLLEGEMAPS_URL }} />
           </View>
+          <View style={styles.dividerView}></View>
+          <Card style={styles.titleCard}>
+            <Text style={styles.titleText}>Extracurricular Activities</Text>
+          </Card>
         </ScrollView>
       </Layout>
     );
@@ -56,5 +60,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 150,
     height: deviceHeight/1.5,
-  }
+  },
+  dividerView: {
+    height: 20,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  titleText: {
+    textAlign: 'center',
+    fontWeight: 'bold',
+    fontSize: 18,
+    alignItems: "center",
+    justifyContent: "center",
+  },
 });
