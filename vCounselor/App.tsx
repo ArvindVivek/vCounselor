@@ -82,7 +82,7 @@ export default class App extends React.Component {
             theme={theme}
             customMapping={customMapping}
           >
-            <AppNavigator />
+            <AppNavigator theme={"dark"}/>
           </ApplicationProvider>
         </React.Fragment>
       );
@@ -101,24 +101,21 @@ export const StackNavigator = createStackNavigator({
     screen: CounselingScreen,
     navigationOptions: {
       headerShown: true,
-      headerStyle: {},
-      headerStatusBarHeight: 0,
+      title: "Counseling",
     }
   },
   ResourcesScreen: {
     screen: ResourcesScreen,
     navigationOptions: {
       headerShown: true,
-      headerStyle: {},
-      headerStatusBarHeight: 0,
+      title: "Resources"
     }
   },
   AboutScreen: {
     screen: AboutScreen,
     navigationOptions: {
       headerShown: true,
-      headerStyle: {},
-      headerStatusBarHeight: 0,
+      title: "About",
     }
   }
 });
