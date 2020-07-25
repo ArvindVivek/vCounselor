@@ -12,18 +12,23 @@ import {
   IconRegistry,
   Layout,
   Text,
+  Card,
 } from "@ui-kitten/components";
+import { WebView } from 'react-native-webview';
 
 let deviceHeight = Dimensions.get("window").height;
 let deviceWidth = Dimensions.get("window").width;
+
+var COLLEGEMAPS_URL = 'https://nces.ed.gov/ipeds/collegemap/';
 
 export class ResourcesScreen extends React.Component {
   render() {
     return (
       <Layout style={styles.container}>
-        <Text>
-          Resources
-        </Text>
+        <Card style={styles.cardStyle}>
+          <Text>College Map Search</Text>
+        </Card>
+        <WebView style={styles.webStyle} source={{ uri: COLLEGEMAPS_URL }} />
       </Layout>
     );
   }
@@ -35,4 +40,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  cardStyle: {
+    width: deviceWidth-20,
+    alignItems: 'center',
+    borderRadius: 20,
+  },
+  webStyle: {
+    marginTop: 5,
+    width: deviceWidth-23,
+    height: 200,
+  }
 });

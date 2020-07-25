@@ -84,5 +84,6 @@ const styles = StyleSheet.create({
   },
   cardStyle: {
     width: deviceWidth-30,
+    borderRadius: 20,
   }
 });
