@@ -14,11 +14,14 @@ import {
   Text,
   Button,
   ButtonGroup,
+  Card
 } from "@ui-kitten/components";
 import {SliderBox} from "react-native-image-slider-box";
 
 let deviceHeight = Dimensions.get("window").height;
 let deviceWidth = Dimensions.get("window").width;
+
+const logo = require("../../../assets/vCounselorLogo.png");
 
 export class MainScreen extends React.Component {
   
@@ -46,23 +49,23 @@ export class MainScreen extends React.Component {
   render() {
     return (
       <Layout style={styles.container}>
-        <Image source={require('/home/arvind/Documents/Hackathons/Flarehacks-Modhacks2020/vCounselor/vCounselor/assets/vCounselorLogo.png')} style={styles.logo}></Image>
-        <Text style={styles.introText}>
-          Welcome to vCounselor, your personal counseling guidance app!
-        </Text>
-        <View style={styles.textPadding}>
-        </View>
+        <Image source={logo} style={styles.logo}></Image>
+        <Card style={styles.cardStyle}>
+          <Text style={styles.introText}>
+            Welcome to vCounselor, your personal counseling guidance app!
+          </Text>
+        </Card>
         <View style={styles.buttonPadding}/>
-        <View style={styles.slideshow}>
+        <Card style={styles.slideshow}>
           <SliderBox
-            parentWidth={deviceWidth-30}
+            parentWidth={deviceWidth-40}
             sliderBoxHeight={deviceHeight/3.4}
             autoplay={true} 
             circleLoop={true} 
             dotColor="#FFEE58"
             inactiveDotColor="#90A4AE"
             images={this.state.images}/>
-        </View>
+        </Card>
         <View style={styles.buttonPadding}/>
         <View style={styles.buttonRow}>
           <ButtonGroup>
@@ -115,8 +118,12 @@ const styles = StyleSheet.create({
     width: deviceWidth/3.25,
   },
   slideshow: {
-    height: deviceHeight/3,
+    height: deviceHeight/3.3,
     alignItems: "center",
     justifyContent: "center",
+    width: deviceWidth-20,
+  },
+  cardStyle: {
+    width: deviceWidth-30,
   }
 });
