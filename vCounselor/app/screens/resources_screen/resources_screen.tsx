@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
   cardStyle: {
     width: deviceWidth-20,
     alignItems: 'center',
-    borderRadius: 20,
+    borderRadius: 15,
   },
   webStyle: {
     marginTop: 5,
