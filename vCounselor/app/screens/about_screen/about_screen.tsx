@@ -22,7 +22,7 @@ export class AboutScreen extends React.Component {
     return (
       <Layout style={styles.container}>
         <Text>
-          Hello, world!
+          About
         </Text>
       </Layout>
     );

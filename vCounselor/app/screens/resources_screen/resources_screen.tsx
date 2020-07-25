@@ -22,7 +22,7 @@ export class ResourcesScreen extends React.Component {
     return (
       <Layout style={styles.container}>
         <Text>
-          Hello, world!
+          Resources
         </Text>
       </Layout>
     );

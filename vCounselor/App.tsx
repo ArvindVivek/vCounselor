@@ -17,6 +17,9 @@ import * as Font from "expo-font";
 import { AppLoading } from "expo";
 
 import { MainScreen } from "./app/screens/main_screen/main_screen";
+import {CounselingScreen} from "./app/screens/counseling_screen/counseling_screen";
+import {ResourcesScreen} from "./app/screens/resources_screen/resources_screen";
+import {AboutScreen} from "./app/screens/about_screen/about_screen";
 
 const theme = { ...darkTheme };
 
@@ -91,9 +94,33 @@ export const StackNavigator = createStackNavigator({
   MainScreen: {
     screen: MainScreen,
     navigationOptions: {
-      headerShown: false,
-    },
+      headerShown: false
+    }
   },
+  CounselingScreen: {
+    screen: CounselingScreen,
+    navigationOptions: {
+      headerShown: true,
+      headerStyle: {},
+      headerStatusBarHeight: 0,
+    }
+  },
+  ResourcesScreen: {
+    screen: ResourcesScreen,
+    navigationOptions: {
+      headerShown: true,
+      headerStyle: {},
+      headerStatusBarHeight: 0,
+    }
+  },
+  AboutScreen: {
+    screen: AboutScreen,
+    navigationOptions: {
+      headerShown: true,
+      headerStyle: {},
+      headerStatusBarHeight: 0,
+    }
+  }
 });
 
 export const AppNavigator = createAppContainer(StackNavigator);

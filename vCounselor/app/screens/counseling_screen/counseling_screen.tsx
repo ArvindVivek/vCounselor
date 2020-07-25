@@ -13,24 +13,21 @@ import {
   Layout,
   Text,
 } from "@ui-kitten/components";
-import {default as MainScreen} from "../main_screen/main_screen";
 
 let deviceHeight = Dimensions.get("window").height;
 let deviceWidth = Dimensions.get("window").width;
 
-class CounselingScreen extends React.Component {
+export class CounselingScreen extends React.Component {
   render() {
     return (
       <Layout style={styles.container}>
         <Text>
-          Hello, world!
+          Counseling
         </Text>
       </Layout>
     );
   }
 }
-
-export default CounselingScreen;
 
 const styles = StyleSheet.create({
   container: {
