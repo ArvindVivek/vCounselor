@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { StyleSheet, View, Dimensions } from "react-native";
 import { EvaIconsPack } from "@ui-kitten/eva-icons";
 import {
@@ -11,17 +11,30 @@ import {
   ApplicationProvider,
   IconRegistry,
   Layout,
-  Text, Card
+  Text, Card, Popover, Button
 } from "@ui-kitten/components";
-import { LineChart, YAxis, Grid } from 'react-native-svg-charts';
+import { LineChart, YAxis} from 'react-native-svg-charts';
 
 let deviceHeight = Dimensions.get("window").height;
 let deviceWidth = Dimensions.get("window").width;
 
 export class CounselingScreen extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      visible: false
+    };
+  }
+
   render() {
     const data = [10,12,9,11,15,17];
     const contentInset = { top: 20, bottom: 20 }
+
+    const renderToggleButton = () => (
+      <Button style={styles.buttonStyle} onPress={() => this.setState({visible: true})}>
+        Predict Next Rating
+      </Button>
+    );
 
     return (
       <Layout style={styles.container}>
@@ -53,6 +66,19 @@ export class CounselingScreen extends React.Component {
         <Card style={styles.titleCard}>
           <Text>Current Rating: 17</Text>
         </Card>
+        <View>
+          <Popover
+            visible={this.state.visible}
+            placement={'bottom end'}
+            anchor={renderToggleButton}
+            onBackdropPress={() => this.setState({visible: false})}>
+            <Layout style={styles.content}>
+              <Text>
+                Prediction: 18
+              </Text>
+            </Layout>
+          </Popover>
+        </View>
       </Layout>
     );
   }
@@ -91,4 +117,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  content: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 10,
+  },
+  buttonStyle: {
+    width: deviceWidth-20,
+    borderRadius: 15,
+  }
 });
