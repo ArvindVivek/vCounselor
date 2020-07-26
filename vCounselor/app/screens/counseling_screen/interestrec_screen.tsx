@@ -18,11 +18,32 @@ import firebase from "firebase";
 let deviceHeight = Dimensions.get("window").height;
 let deviceWidth = Dimensions.get("window").width;
 
-const data = ['chicken', 'chi', 'dsaf', 'asfsd','asfdas'];
+const data1 = ['University of Southern California', 'Boston University', 'University of Florida', 'Northeastern University','Stony Brook Universty'];
+const data2 = ['Diagnostic Medical Sonographers', 'EMTs and Paramedics', 'Home Health Aides and Personal Care Aides', 'Medical and Health Services Mangers','Medical Equipment Repairers'];
+const data3 = ['Biology', 'Calculus BC', 'Chemistry'];
 
-const renderItem1 = () => (
-  <ListItem title={"title"}/>
+const forFire = [data1, data2, data3];
+
+const renderItem1 = ({index}) => (
+  <ListItem title={data1[index]}/>
 );
+
+const renderItem2 = ({index}) => (
+  <ListItem title={data2[index]}/>
+);
+
+const renderItem3 = ({index}) => (
+  <ListItem title={data3[index]}/>
+);
+
+async function pushData(rating) {
+  firebase
+    .database()
+    .ref("Interests").child(0)
+    .set(forFire);
+}
+
+pushData();
 
 export class InterestRecScreen extends React.Component {
   constructor(props) {
@@ -34,8 +55,8 @@ export class InterestRecScreen extends React.Component {
     
   render() {
     const interests = [
-      "Biomedical",
       "Business",
+      "Biomedical",
       "Computer Science",
       "Education",
       "Engineering",
@@ -46,14 +67,14 @@ export class InterestRecScreen extends React.Component {
     ];
 
     const interests2 = [
-        "Business",
+        "Biomedical",
         "Computer Science",
         "Education",
         "Engineering",
         "Law",
         "Liberal Arts",
         "Psychology",
-        "Biomedical"
+        "Business"
       ];
     
     const displayValue = interests[this.state.selectedIndex];
@@ -89,7 +110,7 @@ export class InterestRecScreen extends React.Component {
             </Card>
             <List
                 style={styles.listStyle}
-                data={data}
+                data={data1}
                 renderItem={renderItem1}
                 ItemSeparatorComponent={Divider}
             >
@@ -107,8 +128,8 @@ export class InterestRecScreen extends React.Component {
             </Card>
             <List 
                 style={styles.listStyle}
-                data={data}
-                renderItem={renderItem1}
+                data={data2}
+                renderItem={renderItem2}
                 ItemSeparatorComponent={Divider}
             >
             </List>
@@ -125,8 +146,8 @@ export class InterestRecScreen extends React.Component {
             </Card>
             <List 
                 style={styles.listStyle}
-                data={data}
-                renderItem={renderItem1}
+                data={data3}
+                renderItem={renderItem3}
                 ItemSeparatorComponent={Divider}
             >
             </List>
