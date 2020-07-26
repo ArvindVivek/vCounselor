@@ -13,6 +13,7 @@ import {
   Layout,
   Text, Icon, Card, List, ListItem, Divider, IndexPath, Select, SelectItem
 } from "@ui-kitten/components";
+import firebase from "firebase";
 
 let deviceHeight = Dimensions.get("window").height;
 let deviceWidth = Dimensions.get("window").width;
@@ -22,8 +23,6 @@ const data = ['chicken', 'chi', 'dsaf', 'asfsd','asfdas'];
 const renderItem1 = () => (
   <ListItem title={"title"}/>
 );
-
-
 
 export class InterestRecScreen extends React.Component {
   constructor(props) {

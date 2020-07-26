@@ -37,7 +37,9 @@ const firebaseConfig = {
   appId: "1:509779694634:web:30ab2fbb9198e33a8d1f53" 
 }
 
-firebase.initializeApp(firebaseConfig);
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
 
 function wait(timeout: number) {
   return new Promise(resolve => {

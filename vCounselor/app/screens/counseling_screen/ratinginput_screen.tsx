@@ -18,6 +18,9 @@ import {
 import { ScrollView } from "react-native-gesture-handler";
 import axios from 'axios';
 import firebase from "firebase";
+import Constants from "expo-constants";
+
+let deviceID = Constants.deviceId;
 
 let deviceHeight = Dimensions.get("window").height;
 let deviceWidth = Dimensions.get("window").width;
@@ -26,6 +29,28 @@ var url = 'https://test-flask-boot.herokuapp.com/predict_api';
 var data = {'sex':0, 'age':0, 'guardian': 0, 'traveltime': 0, 'studytime': 0, 'failures':0, 'schoolsup': 0, 'famsup': 0, 'paid': 0, 'activities': 0, 'higher': 0, 'internet': 0, 'famrel': 0, 'freetime':0, 'goout':0, 'health': 0, 'absences': 0};
 
 export var currentsPerf: any;
+
+const rData = [];
+fetchData();
+
+async function fetchData() {
+  firebase.database().ref(deviceID).once('value').then(function(snapshot) {
+    rData = snapshot.val();
+    if(rData == null) {
+      rData = [0];
+    }
+  });
+}
+
+async function pushData() {
+  currentsPerf = this.state.sPerf;
+  rData.push(17);
+  
+  await firebase
+    .database()
+    .ref(deviceID)
+    .set(rData);
+}
 
 export class RatingInputScreen extends React.Component {
 
@@ -54,7 +79,7 @@ export class RatingInputScreen extends React.Component {
   }
 
   async goToHome() {
-    currentsPerf = this.state.sPerf;
+    await pushData();
     await this.navigateToMainScreen();
   };
 
@@ -207,7 +232,7 @@ export class RatingInputScreen extends React.Component {
     this.setState({absences: num});
   }
 
-  setSPerf() {
+  async setSPerf() {
     data['sex'] = this.state.gender;
     data['age'] = this.state.age;
     data['guardian'] = this.state.guardian;

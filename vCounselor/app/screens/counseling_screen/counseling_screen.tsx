@@ -16,36 +16,29 @@ import {
 import { LineChart, YAxis} from 'react-native-svg-charts';
 import {RatingInputScreen, currentsPerf} from "./ratinginput_screen";
 import firebase from "firebase";
-import DeviceInfo from 'react-native-device-info';
+import Constants from "expo-constants";
+
 
 let deviceHeight = Dimensions.get("window").height;
 let deviceWidth = Dimensions.get("window").width;
 
-let deviceID: any;
-let data= [1,2,3,4,5];
-let data2: any;
-
-DeviceInfo.getUniqueId().then(uniqueId => {
-  deviceID = uniqueId;
-});
+let deviceID = Constants.deviceId;
+let data = [];
+fetchData();
 
 async function fetchData() {
-  let fetchedData;
-  await firebase
-    .database()
-    .ref(deviceID + "/preferences")
-    .once("value")
-    .then(function(snapshot) {
-      fetchedData = snapshot.val();
-      console.log(fetchedData);
-    });
-  data2 = fetchedData;
-  console.log(data2);
+  firebase.database().ref(deviceID).once('value').then(function(snapshot) {
+    data = snapshot.val();
+    if(data == null) {
+      data = [0];
+    }
+  });
 }
 
 export class CounselingScreen extends React.Component {
   constructor(props) {
     super(props);
+    fetchData();
     this.state = {
       visible: false,
       currentRating: currentsPerf
