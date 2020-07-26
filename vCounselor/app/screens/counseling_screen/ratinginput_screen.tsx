@@ -35,7 +35,6 @@ fetchData();
 
 async function fetchData() {
   firebase.database().ref(deviceID).once('value').then(function(snapshot) {
-    console.log(snapshot.val());
     rData = snapshot.val();
     if(rData == null) {
       rData = [0];
@@ -43,12 +42,13 @@ async function fetchData() {
   });
 }
 
-async function pushData() {
-  rData.push(17);
+async function pushData(rating) {
+  rData.push(rating);
   firebase
     .database()
     .ref(deviceID)
     .set(rData);
+    currentsPerf = rating;
 }
 
 export class RatingInputScreen extends React.Component {
@@ -78,8 +78,8 @@ export class RatingInputScreen extends React.Component {
     };
   }
 
-  goToCounseling() {
-    pushData();
+  goToCounseling(rating) {
+    pushData(rating);
     this.navigateToCounselingScreen();
   }
 
@@ -347,7 +347,7 @@ export class RatingInputScreen extends React.Component {
           </View>
           <Button style = {styles.button} onPress = {() => this.setSPerf()} >Submit</Button>
         <Text style = {styles.rating}>Student Performance Rating: {this.state.sPerf}</Text>
-        <Button style = {styles.button} onPress = {() => this.goToCounseling()} >Done</Button>
+        <Button style = {styles.button} onPress = {() => this.goToCounseling(this.state.sPerf)} >Done</Button>
         </ScrollView>
       </Layout>
     );

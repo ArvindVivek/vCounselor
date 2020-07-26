@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View, Dimensions, ScrollView } from "react-native";
+import { StyleSheet, View, Dimensions, ScrollView, Linking } from "react-native";
 import { EvaIconsPack } from "@ui-kitten/eva-icons";
 import {
   createAppContainer,
@@ -13,6 +13,7 @@ import {
   Layout,
   Text,
   Card,
+  Calendar, Button
 } from "@ui-kitten/components";
 import { WebView } from 'react-native-webview';
 
@@ -20,6 +21,7 @@ let deviceHeight = Dimensions.get("window").height;
 let deviceWidth = Dimensions.get("window").width;
 
 var COLLEGEMAPS_URL = 'https://nces.ed.gov/ipeds/collegemap/';
+var docLink = "https://docs.google.com/document/d/e/2PACX-1vTWuoPwa6I3wRerPH7UngxD1DXXN09SMOq3DnOXM-XPOfdfoWNCN5OmNOQ8JUNekCMkSFudQQ8mlAP_/pub";
 
 export class ResourcesScreen extends React.Component {
   render() {
@@ -34,8 +36,17 @@ export class ResourcesScreen extends React.Component {
           </View>
           <View style={styles.dividerView}></View>
           <Card style={styles.titleCard}>
-            <Text style={styles.titleText}>Extracurricular Activities</Text>
+            <Text style={styles.titleText}>Calendar</Text>
           </Card>
+          <Card style={styles.titleCard}>
+            <Calendar>
+            </Calendar>
+          </Card>
+          <View style={styles.dividerView}></View>
+          <Card style={styles.titleCard}>
+            <Text style={styles.titleText}>Important Links</Text>
+          </Card>
+          <Button style={styles.titleCard} onPress={()=>{Linking.openURL(docLink)}}>Go to Master Doc</Button>
         </ScrollView>
       </Layout>
     );

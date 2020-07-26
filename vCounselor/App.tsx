@@ -39,9 +39,8 @@ const firebaseConfig = {
 
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
+  console.disableYellowBox = true;
 }
-
-console.disableYellowBox = true;
 
 export default class App extends React.Component {
   fontsLoaded = false;

@@ -42,7 +42,7 @@ export class CounselingScreen extends React.Component {
     this.state = {
       refreshing: false,
       visible: false,
-      currentRating: data[0]
+      currentRating: data[data.length-1],
     };
   }
 
@@ -122,7 +122,7 @@ export class CounselingScreen extends React.Component {
                   height: 50,
                   marginRight: 10,
                   marginBottom: 10,}}>
-                  <Text>Current Rating: {this.state.currentRating}</Text>
+                  <Text>Current Rating: {data[data.length-1]}</Text>
               </Card>
               <View>
                 <Popover

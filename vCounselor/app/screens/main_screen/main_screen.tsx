@@ -16,6 +16,7 @@ import {
   ButtonGroup,
   Card
 } from "@ui-kitten/components";
+// @ts-ignore
 import {SliderBox} from "react-native-image-slider-box";
 
 let deviceHeight = Dimensions.get("window").height;
