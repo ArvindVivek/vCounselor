@@ -53,7 +53,7 @@ export class CounselingScreen extends React.Component {
       <Layout style={styles.container}>
         <ScrollView>
           <View style={styles.container}>
-            <Text style={styles.title}>Welcome to Virtual Counseling!</Text>
+            <Text style={styles.title}>Virtual Counseling</Text>
             <Button onPress={() => this.navigateToRatingInputScreen()} style={styles.buttonStyle}>
               Input Your Rating Data
             </Button>
