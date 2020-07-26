@@ -41,11 +41,7 @@ if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
 }
 
-function wait(timeout: number) {
-  return new Promise(resolve => {
-    setTimeout(resolve, timeout);
-  });
-}
+console.disableYellowBox = true;
 
 export default class App extends React.Component {
   fontsLoaded = false;
