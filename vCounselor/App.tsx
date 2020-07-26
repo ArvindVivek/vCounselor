@@ -23,7 +23,21 @@ import {AboutScreen} from "./app/screens/about_screen/about_screen";
 import {RatingInputScreen} from "./app/screens/counseling_screen/ratinginput_screen";
 import {InterestRecScreen} from "./app/screens/counseling_screen/interestrec_screen";
 
+import * as firebase from 'firebase';
+
 const theme = { ...darkTheme };
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCr7b21VCz1yH8CAnBGaLylHUo4zti589A",
+  authDomain: "vcounselor-ff42d.firebaseapp.com",
+  databaseURL: "https://vcounselor-ff42d.firebaseio.com",
+  projectId: "vcounselor-ff42d",
+  storageBucket: "vcounselor-ff42d.appspot.com",
+  messagingSenderId: "509779694634",
+  appId: "1:509779694634:web:30ab2fbb9198e33a8d1f53" 
+}
+
+firebase.initializeApp(firebaseConfig);
 
 function wait(timeout: number) {
   return new Promise(resolve => {
@@ -123,8 +137,7 @@ export const StackNavigator = createStackNavigator({
   RatingInputScreen: {
     screen: RatingInputScreen,
     navigationOptions: {
-      headerShown: true,
-      title: "Personal Data",
+      headerShown: false,
     }
   },
   InterestRecScreen: {

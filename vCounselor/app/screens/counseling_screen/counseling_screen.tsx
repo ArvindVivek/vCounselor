@@ -11,18 +11,44 @@ import {
   ApplicationProvider,
   IconRegistry,
   Layout,
-  Text, Card, Popover, Button
+  Text, Card, Popover, Button, List
 } from "@ui-kitten/components";
 import { LineChart, YAxis} from 'react-native-svg-charts';
+import {RatingInputScreen, currentsPerf} from "./ratinginput_screen";
+import firebase from "firebase";
+import DeviceInfo from 'react-native-device-info';
 
 let deviceHeight = Dimensions.get("window").height;
 let deviceWidth = Dimensions.get("window").width;
+
+let deviceID: any;
+let data= [1,2,3,4,5];
+let data2: any;
+
+DeviceInfo.getUniqueId().then(uniqueId => {
+  deviceID = uniqueId;
+});
+
+async function fetchData() {
+  let fetchedData;
+  await firebase
+    .database()
+    .ref(deviceID + "/preferences")
+    .once("value")
+    .then(function(snapshot) {
+      fetchedData = snapshot.val();
+      console.log(fetchedData);
+    });
+  data2 = fetchedData;
+  console.log(data2);
+}
 
 export class CounselingScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      visible: false
+      visible: false,
+      currentRating: currentsPerf
     };
   }
 
@@ -35,7 +61,6 @@ export class CounselingScreen extends React.Component {
   }
 
   render() {
-    const data = [10,12,9,11,15,17];
     const contentInset = { top: 20, bottom: 20 }
 
     const renderToggleButton = () => (
@@ -93,7 +118,7 @@ export class CounselingScreen extends React.Component {
                   height: 50,
                   marginRight: 10,
                   marginBottom: 10,}}>
-                <Text>Current Rating: 17</Text>
+                  <Text>Current Rating: {this.state.currentRating}</Text>
               </Card>
               <View>
                 <Popover
