@@ -35,12 +35,6 @@ async function fetchData() {
   });
 }
 
-function wait(timeout: number) {
-  return new Promise(resolve => {
-    setTimeout(resolve, timeout);
-  });
-}
-
 export class CounselingScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -53,7 +47,6 @@ export class CounselingScreen extends React.Component {
   }
 
   _onRefresh = () => {
-    wait(200);
     this.setState({refreshing: true});
     fetchData().then(() => {
       this.setState({refreshing: false});
