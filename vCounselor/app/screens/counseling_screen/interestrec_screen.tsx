@@ -11,95 +11,62 @@ import {
   ApplicationProvider,
   IconRegistry,
   Layout,
-  Text, Icon, Card, List, ListItem, Divider, IndexPath, Select, SelectItem
+  Text, Icon, Card, List, ListItem, Divider, IndexPath, Select, SelectItem, Button, Input
 } from "@ui-kitten/components";
 import firebase from "firebase";
+import axios from 'axios';
 
 let deviceHeight = Dimensions.get("window").height;
 let deviceWidth = Dimensions.get("window").width;
 
-const data1 = ['University of Southern California', 'Boston University', 'University of Florida', 'Northeastern University','Stony Brook Universty'];
-const data2 = ['Diagnostic Medical Sonographers', 'EMTs and Paramedics', 'Home Health Aides and Personal Care Aides', 'Medical and Health Services Mangers','Medical Equipment Repairers'];
-const data3 = ['Biology', 'Calculus BC', 'Chemistry'];
+let data_json = {'interest':'major_of_interst'}
 
-const forFire = [data1, data2, data3];
+var WEBSCRAPE_URL = 'https://test-flask-boot.herokuapp.com/web_scrape';
 
-const renderItem1 = ({index}) => (
-  <ListItem title={data1[index]}/>
+const renderItem1 = () => (
+  <ListItem title={"title"}/>
 );
-
-const renderItem2 = ({index}) => (
-  <ListItem title={data2[index]}/>
-);
-
-const renderItem3 = ({index}) => (
-  <ListItem title={data3[index]}/>
-);
-
-async function pushData(rating) {
-  firebase
-    .database()
-    .ref("Interests").child(0)
-    .set(forFire);
-}
-
-pushData();
 
 export class InterestRecScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedIndex: null
+      selectedIndex: null,
+      schools: "",
+      jobs: "",
+      classes: "",
+      interest: "",
     };
+  }
+
+  getRecs = () => {
+    axios.post(WEBSCRAPE_URL, {'interest': this.state.interest}).then(res => {
+      console.log(res.data.schools);
+      /*this.setState({selectedIndex: selected});*/
+      this.setState({classes: res.data.classes, jobs: res.data.jobs, schools: res.data.schools});
+    })
+    .catch(error => {
+      console.log(error.response)
+    });
+  }
+
+  setInterest = (text: string) => {
+    this.setState({interest: text});
   }
     
   render() {
-    const interests = [
-      "Business",
-      "Biomedical",
-      "Computer Science",
-      "Education",
-      "Engineering",
-      "Law",
-      "Liberal Arts",
-      "Psychology",
-      ""
-    ];
-
-    const interests2 = [
-        "Biomedical",
-        "Computer Science",
-        "Education",
-        "Engineering",
-        "Law",
-        "Liberal Arts",
-        "Psychology",
-        "Business"
-      ];
-    
-    const displayValue = interests[this.state.selectedIndex];
-
-    const renderOption = (title) => (
-      <SelectItem title={title}/>
-    );
 
     return (
       <Layout style={styles.container}>
         <ScrollView>
-          <View style={styles.container}>
-            <Text style={styles.title}>Education and Career Recommendations</Text>
+          <Text style = {styles.title}>Education and Career Recommendations</Text>
 
-            <Select
-                placeholder="Choose an interest" 
-                style={styles.selectStyle}
-                value={displayValue}
-                selectedIndex={this.state.selectedIndex}
-                onSelect={(item) => this.setState({selectedIndex: item})}>
-                {interests2.map(renderOption)}
-            </Select>
+          <Input placeholder = "Enter major of interest" onChangeText = {this.setInterest}></Input>
 
-            <Card style={styles.titleCard}>
-                <View style={styles.headingView}>
+          <Button onPress = {this.getRecs}>Enter</Button>
+
+          <Card style = {styles.titleCard}>
+          <View style={styles.headingView}>
                 <Icon
                     style={styles.icon}
                     fill='#8F9BB3'
@@ -107,17 +74,11 @@ export class InterestRecScreen extends React.Component {
                 />
                 <Text style={styles.titleText}>Top Universities</Text>
                 </View>
-            </Card>
-            <List
-                style={styles.listStyle}
-                data={data1}
-                renderItem={renderItem1}
-                ItemSeparatorComponent={Divider}
-            >
-            </List>
+                <Text style = {styles.textView}>{this.state.schools}</Text>
+          </Card>
 
-            <Card style={styles.titleCard}>
-                <View style={styles.headingView}>
+          <Card style = {styles.titleCard}>
+            <View style={styles.headingView}>
                 <Icon
                     style={styles.icon}
                     fill='#8F9BB3'
@@ -125,17 +86,13 @@ export class InterestRecScreen extends React.Component {
                 />
                 <Text style={styles.titleText}>Careers to Explore</Text>
                 </View>
-            </Card>
-            <List 
-                style={styles.listStyle}
-                data={data2}
-                renderItem={renderItem2}
-                ItemSeparatorComponent={Divider}
-            >
-            </List>
 
-            <Card style={styles.titleCard}>
-                <View style={styles.headingView}>
+              <Text style = {styles.textView}>{this.state.jobs}</Text>
+
+          </Card>
+
+          <Card style = {styles.titleCard}>
+          <View style={styles.headingView}>
                 <Icon
                     style={styles.icon}
                     fill='#8F9BB3'
@@ -143,15 +100,9 @@ export class InterestRecScreen extends React.Component {
                 />
                 <Text style={styles.titleText}>Recommended AP Courses</Text>
                 </View>
-            </Card>
-            <List 
-                style={styles.listStyle}
-                data={data3}
-                renderItem={renderItem3}
-                ItemSeparatorComponent={Divider}
-            >
-            </List>
-          </View>
+          <Text style = {styles.textView}>{this.state.classes}</Text>
+          </Card>
+
         </ScrollView>
       </Layout>
     );
@@ -174,7 +125,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 15,
     marginTop: 10,
-    marginBottom: 10,
+    marginBottom: 20,
   },
   titleText: {
     textAlign: 'center',
@@ -202,5 +153,16 @@ const styles = StyleSheet.create({
   },
   selectStyle: {
       width: deviceWidth/1.5,
+  },
+  inputView: {
+    marginHorizontal: 20,
+    marginVertical: 10,
+  },
+  textView: {
+    marginHorizontal: 10,
+    marginTop: 20,
+    marginBottom: 10,
+    fontSize: 15,
+    textAlign: "center",
   }
 });
