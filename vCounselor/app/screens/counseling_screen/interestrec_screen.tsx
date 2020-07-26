@@ -13,7 +13,6 @@ import {
   Layout,
   Text, Icon, Card, List, ListItem, Divider, IndexPath, Select, SelectItem, Button, Input
 } from "@ui-kitten/components";
-import firebase from "firebase";
 import axios from 'axios';
 
 let deviceHeight = Dimensions.get("window").height;
@@ -22,10 +21,6 @@ let deviceWidth = Dimensions.get("window").width;
 let data_json = {'interest':'major_of_interst'}
 
 var WEBSCRAPE_URL = 'https://test-flask-boot.herokuapp.com/web_scrape';
-
-const renderItem1 = () => (
-  <ListItem title={"title"}/>
-);
 
 export class InterestRecScreen extends React.Component {
   constructor(props) {
@@ -61,48 +56,50 @@ export class InterestRecScreen extends React.Component {
         <ScrollView>
           <Text style = {styles.title}>Education and Career Recommendations</Text>
 
-          <Input placeholder = "Enter major of interest" onChangeText = {this.setInterest}></Input>
+          <View style={styles.container}>
+          <Input style={styles.buttonStyle} placeholder = "Enter major of interest" onChangeText = {this.setInterest}></Input>
 
-          <Button onPress = {this.getRecs}>Enter</Button>
+          <Button style={styles.buttonStyle} onPress = {this.getRecs}>Enter</Button>
+          <View style={styles.padding}></View>
 
-          <Card style = {styles.titleCard}>
-          <View style={styles.headingView}>
-                <Icon
-                    style={styles.icon}
-                    fill='#8F9BB3'
-                    name='book'
-                />
-                <Text style={styles.titleText}>Top Universities</Text>
-                </View>
-                <Text style = {styles.textView}>{this.state.schools}</Text>
-          </Card>
-
-          <Card style = {styles.titleCard}>
+            <Card style = {styles.titleCard}>
             <View style={styles.headingView}>
-                <Icon
-                    style={styles.icon}
-                    fill='#8F9BB3'
-                    name='briefcase'
-                />
-                <Text style={styles.titleText}>Careers to Explore</Text>
-                </View>
+                  <Icon
+                      style={styles.icon}
+                      fill='#8F9BB3'
+                      name='book'
+                  />
+                  <Text style={styles.titleText}>Top Universities</Text>
+                  </View>
+                  <Text style = {styles.textView}>{this.state.schools}</Text>
+            </Card>
 
-              <Text style = {styles.textView}>{this.state.jobs}</Text>
+            <Card style = {styles.titleCard}>
+              <View style={styles.headingView}>
+                  <Icon
+                      style={styles.icon}
+                      fill='#8F9BB3'
+                      name='briefcase'
+                  />
+                  <Text style={styles.titleText}>Careers to Explore</Text>
+                  </View>
 
-          </Card>
+                <Text style = {styles.textView}>{this.state.jobs}</Text>
 
-          <Card style = {styles.titleCard}>
-          <View style={styles.headingView}>
-                <Icon
-                    style={styles.icon}
-                    fill='#8F9BB3'
-                    name='book-open'
-                />
-                <Text style={styles.titleText}>Recommended AP Courses</Text>
-                </View>
-          <Text style = {styles.textView}>{this.state.classes}</Text>
-          </Card>
+            </Card>
 
+            <Card style = {styles.titleCard}>
+            <View style={styles.headingView}>
+                  <Icon
+                      style={styles.icon}
+                      fill='#8F9BB3'
+                      name='book-open'
+                  />
+                  <Text style={styles.titleText}>Recommended AP Courses</Text>
+                  </View>
+            <Text style = {styles.textView}>{this.state.classes}</Text>
+            </Card>
+          </View>
         </ScrollView>
       </Layout>
     );
@@ -141,7 +138,7 @@ const styles = StyleSheet.create({
     margin: 20,
   },
   padding: {
-    height: 30,
+    height: 20,
   },
   headingView: {
       flexDirection: 'row',
@@ -164,5 +161,12 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     fontSize: 15,
     textAlign: "center",
-  }
+  },
+  buttonStyle: {
+    width: deviceWidth-20,
+    alignItems: 'center',
+    borderRadius: 15,
+    marginTop: 10,
+    marginBottom: 10,
+  },
 });
