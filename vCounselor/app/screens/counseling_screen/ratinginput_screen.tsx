@@ -30,11 +30,12 @@ var data = {'sex':0, 'age':0, 'guardian': 0, 'traveltime': 0, 'studytime': 0, 'f
 
 export var currentsPerf: any;
 
-const rData = [];
+let rData = [];
 fetchData();
 
 async function fetchData() {
   firebase.database().ref(deviceID).once('value').then(function(snapshot) {
+    console.log(snapshot.val());
     rData = snapshot.val();
     if(rData == null) {
       rData = [0];
@@ -43,10 +44,8 @@ async function fetchData() {
 }
 
 async function pushData() {
-  currentsPerf = this.state.sPerf;
   rData.push(17);
-  
-  await firebase
+  firebase
     .database()
     .ref(deviceID)
     .set(rData);
@@ -56,6 +55,7 @@ export class RatingInputScreen extends React.Component {
 
   constructor(props) {
     super(props);
+    fetchData();
     this.state = {
       sPerf: 0,
       gender: 0,
@@ -78,13 +78,13 @@ export class RatingInputScreen extends React.Component {
     };
   }
 
-  async goToHome() {
-    await pushData();
-    await this.navigateToMainScreen();
-  };
+  goToCounseling() {
+    pushData();
+    this.navigateToCounselingScreen();
+  }
 
-  navigateToMainScreen = () => {
-    this.props.navigation.navigate("MainScreen");
+  navigateToCounselingScreen = () => {
+    this.props.navigation.navigate("CounselingScreen");
   }
 
   setGender = (text: string) => {
@@ -347,7 +347,7 @@ export class RatingInputScreen extends React.Component {
           </View>
           <Button style = {styles.button} onPress = {() => this.setSPerf()} >Submit</Button>
         <Text style = {styles.rating}>Student Performance Rating: {this.state.sPerf}</Text>
-        <Button style = {styles.button} onPress = {() => this.goToHome()} >Done</Button>
+        <Button style = {styles.button} onPress = {() => this.goToCounseling()} >Done</Button>
         </ScrollView>
       </Layout>
     );

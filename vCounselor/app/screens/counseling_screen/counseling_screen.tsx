@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import { StyleSheet, View, Dimensions, ScrollView } from "react-native";
+import { StyleSheet, View, Dimensions, ScrollView, RefreshControl } from "react-native";
 import { EvaIconsPack } from "@ui-kitten/eva-icons";
 import {
   createAppContainer,
@@ -40,9 +40,17 @@ export class CounselingScreen extends React.Component {
     super(props);
     fetchData();
     this.state = {
+      refreshing: false,
       visible: false,
-      currentRating: currentsPerf
+      currentRating: data[0]
     };
+  }
+
+  _onRefresh = () => {
+    this.setState({refreshing: true});
+    fetchData().then(() => {
+      this.setState({refreshing: false});
+    });
   }
 
   navigateToRatingInputScreen = () => {
@@ -69,7 +77,10 @@ export class CounselingScreen extends React.Component {
 
     return (
       <Layout style={styles.container}>
-        <ScrollView>
+        <ScrollView refreshControl={
+          <RefreshControl refreshing={this.state.refreshing}
+          onRefresh={this._onRefresh}/>
+        }>
           <View style={styles.container}>
             <Text style={styles.title}>Virtual Counseling</Text>
             <Button onPress={() => this.navigateToRatingInputScreen()} style={styles.buttonStyle}>
