@@ -20,6 +20,8 @@ import { MainScreen } from "./app/screens/main_screen/main_screen";
 import {CounselingScreen} from "./app/screens/counseling_screen/counseling_screen";
 import {ResourcesScreen} from "./app/screens/resources_screen/resources_screen";
 import {AboutScreen} from "./app/screens/about_screen/about_screen";
+import {RatingInputScreen} from "./app/screens/counseling_screen/ratinginput_screen";
+import {InterestRecScreen} from "./app/screens/counseling_screen/interestrec_screen";
 
 const theme = { ...darkTheme };
 
@@ -116,6 +118,20 @@ export const StackNavigator = createStackNavigator({
     navigationOptions: {
       headerShown: true,
       title: "About",
+    }
+  },
+  RatingInputScreen: {
+    screen: RatingInputScreen,
+    navigationOptions: {
+      headerShown: true,
+      title: "Personal Data",
+    }
+  },
+  InterestRecScreen: {
+    screen: InterestRecScreen,
+    navigationOptions: {
+      headerShown: true,
+      title: "Interest Guide",
     }
   }
 });
